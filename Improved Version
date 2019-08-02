@@ -1,0 +1,102 @@
+import random
+
+
+def draw_board(x):
+    for i in range(0, 9):
+        print(x[i], "|", end=" ")
+        if i == 2 or i == 5:
+            print('\n')
+
+
+def marker():
+    """
+    OUTPUT = player1,player2
+    :return:
+    """
+    mark = input('\nplayer 1 please choose (X or O)').upper()
+    player1_mark = 'x'.upper() if mark == 'x'.upper() else 'o'.upper()
+    player2_mark = 'x'.upper() if mark == 'o'.upper() else 'o'.upper()
+    return player1_mark, player2_mark
+
+
+def turn_selection():
+    rand = random.randint(1, 2)
+    return p1 if rand == 1 else p2
+
+
+def check_win(x):
+    global status
+    global draw
+    # Horizontal winning condition
+    if x[0] == x[1] and x[1] == x[2] and x[0] == turn:
+        status = False
+        return turn
+    elif x[3] == x[4] and x[4] == x[5] and x[3] == turn:
+        status = False
+        return turn
+    elif x[6] == x[7] and x[7] == x[8] and x[6] == turn:
+        status = False
+        return turn
+        # Vertical Winning Condition
+    elif x[0] == x[3] and x[3] == x[6] and x[0] == turn:
+        status = False
+        return turn
+    elif x[1] == x[4] and board[4] == x[7] and x[1] == turn:
+        status = False
+        return turn
+    elif x[2] == x[5] and x[5] == x[8] and x[2] == turn:
+        status = False
+        return turn
+        # Diagonal Winning Condition
+    elif x[0] == x[4] and x[4] == x[8] and x[0] == turn:
+        status = False
+        return turn
+    elif x[2] == x[4] and x[4] == x[6] and x[2] == turn:
+        status = False
+        return turn
+        # Match Tie or Draw Condition
+    elif (x[0] != '1' and x[1] != '2' and x[2] != '3' and x[3] != '4' and x[4] != '5' and x[
+         5] != '6' and x[6] != '7' and x[7] != '7' and x[8] != '9'):
+        draw = False
+        status = False
+    else:
+        status = True
+
+
+def is_marked(x, y):
+    return x[y] != 'x'.upper() and x[y] != 'o'.upper()
+
+
+board = [
+    '1', '2', '3',
+    '4', '5', '6',
+    '7', '8', '9',
+     ]
+
+draw_board(board)
+p1, p2 = marker()
+turn = turn_selection()
+
+status = True
+draw = True
+
+while status:
+    draw_board(board)
+    print('\n\n', turn, 'Its your turn')
+    target = int(input('\nPlay your move b/w (1-9)')) - 1
+    if is_marked(board, target):
+        board[target] = turn
+        check_win(board)
+        turn = p2 if turn == p1 else p1
+    elif not is_marked(board, target):
+        print("Already marked Choose again!")
+        
+if not draw:
+    draw_board(board)
+    print("\nGAME IS DRAW")
+    
+elif not status:
+    winner = check_win(board)
+    winner = p1 if winner == p1 else p2
+    draw_board(board)
+    print('\n', winner, 'You WON THE GAME')
