@@ -1,2 +1,2 @@
 # TicTacToe
-Improve version of Tic Tac Toe
+Improve version of Tic Tac Toe. Now following PEP-8 and more logic is improved and code is way clean and efficient than before. Currently its a very basic tic tac toe version. Not much enhanced or optimal. As i'm still a beginner and learning to code in python. Improvements would be appreciated, if someone will explain it nicely. If i made a mistake, correct me with guidance. Looking forward to improve myself and mycode.
